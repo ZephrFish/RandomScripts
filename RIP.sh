@@ -1,5 +1,5 @@
 #!/bin/bash
-# Random IP Printer
+# Random IP Printer - Made for a random project
 # ZephrFish
 # v1.0
 # Check for Arguments
