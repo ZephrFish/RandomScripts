@@ -42,7 +42,7 @@ function checkinternet() {
     echo -e " Checking For Internet: ${g}PASSED${endc}"
   fi
 }
-
+ 
 # Root Check
 function rootcheck() {
 if [[ $USER != "root" ]] ; then
