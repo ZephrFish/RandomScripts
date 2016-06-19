@@ -47,7 +47,10 @@ echo -e " Checking For Root or Sudo: ${g}PASSED${endc}"
 # VPN Locations Menu
 # Carry out rootcheck first before running
 rootcheck
-# Make sure to change the path to configs and also within configs add your own auth details to allow for background running
+#!/bin/bash
+# Updated VPN Script
+# ZephrFish
+
 echo "######################################################"
 echo "##               VPN Connect Script                 ##"
 echo "######################################################"
@@ -55,46 +58,26 @@ echo ""
 echo ""
 echo "Please Select from the Following optinos what server you want to connect to"
 PS3='What server would you like to connect to?: '
-options=("Amsterdam" "Atlanta" "Coventry" "Miami" "Moscow" "Oslo" "Paris" "Stockholm" "Sydney" "Toronto" "Zurich" "Quit")
+options=("Amsterdam" "London" "Miami" "Moscow" "Quit")
 select opt in "${options[@]}"
 do
     case $opt in
         "Amsterdam")
-             openvpn --config /usr/vpnconf/Amsterdam.ovpn&
-            ;;
-        "Atlanta")
-             openvpn --config /usr/vpnconf/Atlanta.ovpn&
-            ;;
-        "Coventry")
-             openvpn --config /usr/vpnconf/Coventry.ovpn&
-            ;;
+		openvpn --config /usr/vpnconf/Amsterdam.ovpn & 
+		;;
+	"London")
+		openvpn --config /usr/vpnconf/London.ovpn & 
+		break		
+		;;
 	"Miami")
-             openvpn --config /usr/vpnconf/Miami.ovpn&
-	    ;;
+		openvpn --config /usr/vpnconf/Miami.ovpn &
+		;;
 	"Moscow")
-	     openvpn --config /usr/vpnconf/Moscow.ovpn&
-	    ;;
-	"Oslo")
-	     openvpn --config /usr/vpnconf/Oslo.ovpn&
-	    ;;
-	"Paris")
-	     openvpn --config /usr/vpnconf/Paris.ovpn&
-	    ;;
-	"Stockholm")
-	     openvpn --config /usr/vpnconf/Stockholm.ovpn&
-	    ;;
-	"Sydney")
-	   openvpn --config /usr/vpnconf/Sydney.ovpn&
-	  ;;
-	"Toronto")
-	   openvpn --config /usr/vpnconf/Toronto.ovpn&
-	  ;;
-	"Zurich")
-	   openvpn --config /usr/vpnconf/Zurich.ovpn&
-          ;;
-        "Quit")
-            break
-            ;;
+		openvpn --config /usr/vpnconf/Moscow.ovpn &
+		;;
+	"Quit")
+		break
+	   	;;
         *) echo "invalid option, please try again";;
     esac
 done
