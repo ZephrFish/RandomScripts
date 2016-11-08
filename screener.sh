@@ -10,4 +10,4 @@
 #done
 #tar czvf $1_screens.tar.gz $1_outputs/*
 #rm -rf $1_outputs
-#echo "[!] Finished..."
+#echo "[!] Finished..." 
