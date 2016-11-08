@@ -1,4 +1,5 @@
 #!/bin/bash
+# Requirements rTorrent, deluge & linux
 
 option(){
 answer=$1;
