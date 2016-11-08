@@ -15,7 +15,7 @@ mv fuzzdb-master fuzzdb
 wget https://github.com/danielmiessler/SecLists/archive/master.zip
 unzip master.zip
 rm master.zip
-mv SecLists-master danielmiessler
+mv SecLists-master seclists
 
 ### xsuperbug
 wget https://github.com/xsuperbug/payloads/archive/master.zip
@@ -64,6 +64,10 @@ wget https://github.com/minimaxir/big-list-of-naughty-strings/archive/master.zip
 unzip master.zip
 rm master.zip
 mv big-list-of-naughty-strings-master big-list-of-naughty-strings
+
+## Portswigger Things
+git clone https://github.com/PortSwigger/backslash-powered-scanner
+git clone https://github.com/PortSwigger/HTTPoxy.git
 
 ###### Uncompress these files
 echo Extracting compressed payload files...
