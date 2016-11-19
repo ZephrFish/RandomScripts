@@ -26,7 +26,9 @@
 
 echo "[+] Debian Deploy Script"
 echo "Sets up a user, installs and deploys openvpn"
+# Add a user for later use
 useradd amnesia
+# recreate sources.list file and append Debian testing sources
 rm -rf /etc/apt/sources.list
 touch /etc/apt/sources.list
 echo "# Debian 9" >> /etc/apt/sources.list
@@ -37,6 +39,7 @@ echo "deb-src http://ftp.debian.org/debian/ stretch-updates main contrib non-fre
 echo "deb http://security.debian.org/ stretch/updates main contrib non-free" >> /etc/apt/sources.list
 echo "deb-src http://security.debian.org/ stretch/updates main contrib non-free" >> /etc/apt/sources.list
 apt-get update
+# Update, Upgrade and Upgrade distrobution
 apt-get upgrade -y
 apt-get dist-upgrade -y
 apt install openvpn sudo wget curl git zip
