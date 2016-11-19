@@ -3,6 +3,8 @@
 # ZephrFish
 
 echo "[+] Debian Deploy Script"
+echo "Sets up a user, installs and deploys openvpn"
+useradd amnesia
 rm -rf /etc/apt/sources.list
 touch /etc/apt/sources.list
 echo "# Debian 9" >> /etc/apt/sources.list
@@ -16,7 +18,7 @@ apt-get update
 apt-get upgrade -y
 apt-get dist-upgrade -y
 apt install openvpn sudo wget curl git zip
-
+gpasswd -a amnesia sudo
 # Detect Debian users running the script with "sh" instead of bash
 if readlink /proc/$$/exe | grep -qs "dash"; then
 	echo "This script needs to be run with bash, not sh"
