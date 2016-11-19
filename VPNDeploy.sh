@@ -1,8 +1,7 @@
 #!/bin/bash
 # OpenVPN Debian Deployment Script
 # ZephrFish
-# Mishmash of scripts, parts from Road Warrior OpenVPN(https://github.com/Nyr/openvpn-install), parts from Deployment Script(https://github.com/ZephrFish/RandomScripts/blob/master/cloudatcost-debian-deploy.sh)
-# Other parts purely written :-)
+#
 # Enjoy
 # The MIT License
 #
