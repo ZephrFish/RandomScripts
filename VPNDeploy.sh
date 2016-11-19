@@ -41,12 +41,6 @@ apt-get upgrade -y
 apt-get dist-upgrade -y
 apt install openvpn sudo wget curl git zip
 gpasswd -a amnesia sudo
-# Detect Debian users running the script with "sh" instead of bash
-if readlink /proc/$$/exe | grep -qs "dash"; then
-	echo "This script needs to be run with bash, not sh"
-	exit 1
-fi
-
 if [[ "$EUID" -ne 0 ]]; then
 	echo "Sorry, you need to run this as root"
 	exit 2
@@ -56,6 +50,7 @@ if [[ ! -e /dev/net/tun ]]; then
 	echo "TUN is not available"
 	exit 3
 fi
+
 if [[ -e /etc/debian_version ]]; then
 	OS=debian
 	GROUPNAME=nogroup
@@ -88,9 +83,6 @@ newclient () {
 	echo "</tls-auth>" >> ~/$1.ovpn
 }
 
-# Try to get our IP from the system and fallback to the Internet.
-# I do this to make the script compatible with NATed servers (lowendspirit.com)
-# and to avoid getting an IPv6.
 IP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
 if [[ "$IP" = "" ]]; then
 		IP=$(wget -qO- ipv4.icanhazip.com)
@@ -254,9 +246,9 @@ else
 	./easyrsa build-server-full server nopass
 	./easyrsa build-client-full $CLIENT nopass
 	./easyrsa gen-crl
-	# Move the stuff we need
+	# Copy components required
 	cp pki/ca.crt pki/private/ca.key pki/dh.pem pki/issued/server.crt pki/private/server.key /etc/openvpn/easy-rsa/pki/crl.pem /etc/openvpn
-	# CRL is read with each client connection, when OpenVPN is dropped to nobody
+	# CRL.pem is read with each client connection, when OpenVPN is dropped to nobody
 	chown nobody:$GROUPNAME /etc/openvpn/crl.pem
 	# Generate key for tls-auth
 	openvpn --genkey --secret /etc/openvpn/ta.key
@@ -363,7 +355,6 @@ crl-verify crl.pem" >> /etc/openvpn/server.conf
 	fi
 	# And finally, restart OpenVPN
 	if [[ "$OS" = 'debian' ]]; then
-		# Little hack to check for systemd
 		if pgrep systemd-journal; then
 			systemctl restart openvpn@server.service
 		else
@@ -394,7 +385,6 @@ crl-verify crl.pem" >> /etc/openvpn/server.conf
 	echo "Killing Logging log /dev/null"
 	echo " log /dev/null" >> /etc/openvpn/server.conf 
 	echo " status /dev/null" >> /etc/openvpn/server.conf 
-	# client-common.txt is created so we have a template to add further users later
 	echo "client
 dev tun
 proto udp
