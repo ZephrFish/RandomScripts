@@ -1,6 +1,7 @@
 #!/bin/bash
 # OpenVPN Debian Deployment Script
 # ZephrFish
+# Mishmash of scripts, parts from Road Warrior OpenVPN
 
 echo "[+] Debian Deploy Script"
 echo "Sets up a user, installs and deploys openvpn"
