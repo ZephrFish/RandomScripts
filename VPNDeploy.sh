@@ -374,6 +374,9 @@ crl-verify crl.pem" >> /etc/openvpn/server.conf
 			IP=$USEREXTERNALIP
 		fi
 	fi
+	echo "Killing Logging log /dev/null"
+	echo " log /dev/null" >> /etc/openvpn/server.conf 
+	echo " status /dev/null" >> /etc/openvpn/server.conf 
 	# client-common.txt is created so we have a template to add further users later
 	echo "client
 dev tun
