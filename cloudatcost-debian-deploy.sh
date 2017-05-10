@@ -15,7 +15,7 @@ echo "deb-src http://ftp.debian.org/debian/ stretch-updates main contrib non-fre
 echo "deb http://security.debian.org/ stretch/updates main contrib non-free" >> /etc/apt/sources.list
 echo "deb-src http://security.debian.org/ stretch/updates main contrib non-free" >> /etc/apt/sources.list
 echo "deb http://http.kali.org/kali kali-rolling main contrib non-free" >> /etc/apt/sources.list
-sudo gpg --keyserver pgpkeys.mit.edu --recv-key  7D8D0BF6
+gpg --keyserver hkp://keys.gnupg.net --recv-key 7D8D0BF6
 sudo gpg -a --export 7D8D0BF6 | sudo apt-key add -
 apt-get update
 apt-get upgrade -y
