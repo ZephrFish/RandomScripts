@@ -1,5 +1,5 @@
 def escape(payload):
-     if payload[0] in ('@','+','-', '=', '|'):
+     if payload[0] in ('@','+','-', '=', '|', '%'):
              payload = payload.replace("|", "\|")
              payload = "'" + payload + "'"
      return payload
