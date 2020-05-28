@@ -13,7 +13,7 @@ byobu split-window -v
 byobu send-keys -t 0 "posh-server" Enter
 
 # Setup posh implant handler in bottom window
-byobu send-keys -t 1 "posh -u Andy-Testing" Enter
+byobu send-keys -t 1 "posh -u $USER" Enter
 
 # Select newly created window
 byobu attach-session -t "PoshC2"
