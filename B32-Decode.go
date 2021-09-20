@@ -1,3 +1,8 @@
+// AutoPoC Decoder
+// Base32 to ASCII
+// decoder.exe <b32 string>
+// Compile:
+// GOOS=windows GOARCH=amd64 go build -ldflags="-s -w -H=windowsgui" -gcflags=-trimpath=/path/to/B32-Decode.go -asmflags=-trimpath=/path/to/B32-Decode.go B32-Decode.go
 package main
 
 import (
