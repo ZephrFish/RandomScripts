@@ -42,7 +42,7 @@ class Recorder:
 
     def record(self):
         speak = wincl.Dispatch("SAPI.SpVoice")
-        speak.Speak("WAKE the fuck up")
+        speak.Speak("WAKE up, you sleeping!")
 
     def listen(self):
         print('Listening beginning')
