@@ -1,4 +1,5 @@
-#!bin/bash
+#!/bin/bash
+# Allocate swap space for VPS
 echo "[*] Swap Setup for VPS with 512mb... [*]"
 swapon -s
 dd if=/dev/zero of=/swapfile bs=1024 count=2048k
