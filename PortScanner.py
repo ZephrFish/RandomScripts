@@ -1,4 +1,6 @@
 # TCP Port Scanner
+# ZephrFish 2022 - Quick and Dirty port scanner takes initial port and last port then checks if open or not
+# python3 portscanner.py x.x.x.x 0 65535
 import socket
 import sys 
 import ipaddress
