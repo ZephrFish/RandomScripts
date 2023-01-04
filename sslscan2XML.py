@@ -7,13 +7,13 @@ import re
 a = open(sys.argv[1]).read()
 m = re.search('Testing SSL server ([\d.]+) on port (\d+)', a, re.S)
 
-print """<?xml version="1.0" encoding="UTF-8"?>
+print("""<?xml version="1.0" encoding="UTF-8"?>
 <document title="SSLScan Results" version="1.8.2" web="http://www.titania.co.uk">
-<ssltest host="%s" port="%s">""" % m.groups()
+<ssltest host="%s" port="%s">""" % m.groups())
 
 for b in re.findall(
     'Accepted.*?(TLSv1|SSLv2|SSLv3)\s+(\d+) bits\s+([\w-]+)',
         a):
-    print '<cipher status="accepted" sslversion="%s" bits="%s" cipher="%s" />' % b
+    print('<cipher status="accepted" sslversion="%s" bits="%s" cipher="%s" />' % b)
 
-print "</ssltest></document>"
+print("</ssltest></document>")
