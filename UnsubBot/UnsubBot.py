@@ -2,6 +2,7 @@ import os
 import base64
 import re
 import requests
+import argparse
 from urllib.parse import urlparse
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
@@ -9,7 +10,9 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from bs4 import BeautifulSoup
 
-SCOPES = ['https://www.googleapis.com/auth/gmail.modify']
+os.environ['OAUTHLIB_RELAX_TOKEN_SCOPE'] = '1'
+
+SCOPES = ['https://www.googleapis.com/auth/gmail.modify', 'https://mail.google.com']
 
 def get_or_create_label(service, label_name):
     """Get or create a label in the user's mailbox."""
@@ -17,7 +20,7 @@ def get_or_create_label(service, label_name):
     for label in labels:
         if label['name'].lower() == label_name.lower():
             return label['id']
-    
+
     label = {
         "name": label_name,
         "labelListVisibility": "labelShow",
@@ -26,7 +29,7 @@ def get_or_create_label(service, label_name):
     created_label = service.users().labels().create(userId='me', body=label).execute()
     return created_label['id']
 
-def main():
+def main(skip_confirmation, delete_after_unsub):
     creds = None
     if os.path.exists('token.json'):
         creds = Credentials.from_authorized_user_file('token.json', SCOPES)
@@ -68,8 +71,7 @@ def main():
                             if not parsed_url.scheme:
                                 href = 'http://' + href
                             print(f"Unsubscribe link: {href}")
-                            user_input = input("Do you want to click this unsubscribe link? (yes/Y/return for yes, no for no): ").strip().lower()
-                            if user_input in ('', 'yes', 'y'):
+                            if skip_confirmation or input("Do you want to click this unsubscribe link? (yes/Y/return for yes, no for no): ").strip().lower() in ('', 'yes', 'y'):
                                 try:
                                     response = requests.get(href)
                                     print(f"Unsubscribe response status: {response.status_code}")
@@ -78,8 +80,15 @@ def main():
                                         id=message['id'],
                                         body={'addLabelIds': [label_id]}
                                     ).execute()
+                                    if delete_after_unsub:
+                                        service.users().messages().delete(userId='me', id=message['id']).execute()
+                                        print("Email deleted.")
                                 except requests.exceptions.RequestException as e:
                                     print(f"Failed to unsubscribe: {e}")
 
 if __name__ == '__main__':
-    main()
+    parser = argparse.ArgumentParser(description='Automatically unsubscribe from marketing emails.')
+    parser.add_argument('--skip-confirmation', action='store_true', help='Skip confirmation before unsubscribing.')
+    parser.add_argument('--delete-after-unsub', action='store_true', help='Delete the email after unsubscribing.')
+    args = parser.parse_args()
+    main(args.skip_confirmation, args.delete_after_unsub)
