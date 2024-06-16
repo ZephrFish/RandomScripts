@@ -51,6 +51,8 @@ source unsub/bin/activate
 python3 UnsubBot.py
 ```
 
+The script will throw open a browser and then prompt you to allow your app to connect to GSuite, once accepted it'll do it's work. By default it's setup to ask you if you want to unsub from each link but you can pass the `--skip-confirmation` to just go for it.
+
 ## Help
 ```bash
 python3 UnsubBot.py -h
@@ -63,3 +65,6 @@ options:
   --skip-confirmation   Skip confirmation prompts for unsubscribing.
   --delete-after-unsub  Delete emails after unsubscribing.
 ```
+
+## Bugs?
+If you find issues with this script, submit a pull request as it worked for me ;).
