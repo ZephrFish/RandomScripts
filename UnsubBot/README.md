@@ -30,7 +30,8 @@ Takes a token and credentials from a Google Cloud app and authenticates to your 
    - Under "Scopes," click "Add or Remove Scopes" and add `https://www.googleapis.com/auth/gmail.modify` and https://mail.google.com scopes.
    - Click "Save and Continue."
 4. Under 'OAuth consent screen' Add your email as the test user;
-`<screenshot>`
+![image](https://github.com/ZephrFish/RandomScripts/assets/5783068/f02e02c4-5c6f-4f9c-a301-3d564a2e6098)
+
 5. After configuring the consent screen, create the OAuth client ID:
    - Choose "Desktop app" as the application type.
    - Enter a name for the OAuth client and click "Create."
